@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "owner": "Lars Schouw",
+  "reviewed_on": "2026-08-28",
+  "license": "MIT",
+  "artifact": {
+    "id": "E-CODE-006",
+    "title": "Native peer-frame codec",
+    "source_path": ".",
+    "publication_status": "public",
+    "public_url": "https://github.com/damian123/native-frame-codec-node-cpp",
+    "verification_command": "npm ci && npm run typecheck && npm test && npm run demo",
+    "expected_test_count": 7,
+    "claims_supported": [
+      "TypeScript and C++ Node-API integration",
+      "bounded incremental binary parsing",
+      "explicit buffer ownership",
+      "native and TypeScript behavioral parity",
+      "fragmentation and truncation handling"
+    ],
+    "evidence_files": [
+      "README.md",
+      "native/",
+      "scripts/",
+      "src/",
+      "test/"
+    ],
+    "claim_boundary": "Synthetic peer messages; not a production networking stack, employer system, protocol-vendor implementation, or performance claim."
+  }
+}
