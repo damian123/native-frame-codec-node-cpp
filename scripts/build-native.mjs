@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -10,13 +10,23 @@ const outputDirectory = join(projectRoot, "build", "Release");
 const output = join(outputDirectory, "frame_codec.node");
 
 const configuredPrefix = process.config.variables.node_prefix;
-if (typeof configuredPrefix !== "string" || configuredPrefix.length === 0) {
-  throw new Error("Unable to determine the Node.js installation prefix.");
-}
+const includeCandidates = [
+  process.env.NODE_INCLUDE_DIR,
+  resolve(dirname(process.execPath), "..", "include", "node"),
+  typeof configuredPrefix === "string" && configuredPrefix.length > 0
+    ? join(configuredPrefix, "include", "node")
+    : undefined,
+  "/usr/local/include/node",
+  "/usr/include/node",
+].filter((candidate) => typeof candidate === "string");
 
-const includeDirectory = join(configuredPrefix, "include", "node");
-if (!existsSync(join(includeDirectory, "node_api.h"))) {
-  throw new Error(`Node-API headers were not found under ${includeDirectory}.`);
+const includeDirectory = includeCandidates.find((candidate) =>
+  existsSync(join(candidate, "node_api.h")),
+);
+if (includeDirectory === undefined) {
+  throw new Error(
+    `Node-API headers were not found. Checked: ${includeCandidates.join(", ")}.`,
+  );
 }
 
 mkdirSync(outputDirectory, { recursive: true });
