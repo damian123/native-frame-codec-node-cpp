@@ -1,7 +1,9 @@
 {
   "schema_version": "1.0",
   "owner": "Lars Schouw",
-  "reviewed_on": "2026-08-28",
+  "repository_account": "damian123",
+  "identity_note": "Published under the GitHub account damian123; commits may use the display name Damian.",
+  "reviewed_on": "2026-08-29",
   "license": "MIT",
   "artifact": {
     "id": "E-CODE-006",
@@ -10,11 +12,14 @@
     "publication_status": "public",
     "public_url": "https://github.com/damian123/native-frame-codec-node-cpp",
     "verification_command": "npm ci && npm run typecheck && npm test && npm run demo",
-    "expected_test_count": 7,
+    "expected_test_count": 14,
     "claims_supported": [
       "TypeScript and C++ Node-API integration",
       "bounded incremental binary parsing",
       "explicit buffer ownership",
+      "re-entrant Node-API input safety",
+      "amortized-linear fragmented-frame buffering",
+      "bounded decoded bytes and frame-object count",
       "native and TypeScript behavioral parity",
       "fragmentation and truncation handling"
     ],
